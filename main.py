@@ -55,6 +55,9 @@ Examples = collections.namedtuple("Examples", "paths, inputs, targets, count, st
 Model = collections.namedtuple("Model", "outputs, predict_real, predict_fake, discrim_loss, discrim_grads_and_vars, gen_loss_GAN, gen_loss_L1, gen_grads_and_vars, train")
 
 
+last_checkpoint = 0
+
+
 def preprocess(image):
     with tf.name_scope("preprocess"):
         # [0, 1] => [-1, 1]
@@ -791,6 +794,15 @@ def main():
                     print("discrim_loss", results["discrim_loss"])
                     print("gen_loss_GAN", results["gen_loss_GAN"])
                     print("gen_loss_L1", results["gen_loss_L1"])
+
+                    global last_checkpoint
+                    if train_epoch - last_checkpoint == 5:
+                        print ("train epoch - ", train_epoch, " last_checkpoint - ", last_checkpoint)
+                        last_checkpoint = train_epoch
+                        print ("train epoch - ", train_epoch, " last_checkpoint - ", last_checkpoint, "\nSaving\n ")
+                        saver.save(sess, os.path.join(a.output_dir, "model"), global_step=sv.global_step)
+
+
 
                 if should(a.save_freq):
                     print("saving model")
