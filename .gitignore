@@ -1,0 +1,16 @@
+*.pyc
+tags
+test
+models
+.idea
+kv1
+facades
+facades_train
+resized
+combined
+depth_estimation
+docker
+docs
+server
+README.md
+LICENSE.txt
