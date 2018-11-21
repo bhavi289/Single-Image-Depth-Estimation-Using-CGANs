@@ -9,6 +9,9 @@ facades_train
 resized
 combined
 depth_estimation
+depth_estimation_2
+results
+test_set
 docker
 docs
 server
