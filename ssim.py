@@ -41,7 +41,7 @@ def compare_images(imageA, imageB, title, f):
 	f.write(str(m)+","+str(s)+"\n")
 	# print(s)
 
-'''
+
 	# setup the figure
 	fig = plt.figure(title)
 	plt.suptitle("MSE: %.2f, SSIM: %.2f" % (m, s))
@@ -57,11 +57,11 @@ def compare_images(imageA, imageB, title, f):
 	plt.axis("off")
 
 	# show the images
-	plt.show()      '''
+	plt.show()      
 
 f = open("mse_ssim.txt","w")
 
-for i in range(1,50):
+for i in range(1,20):
     original = cv2.imread("results/test4/images_to_compare/"+str(i)+"/outputs.png")
     contrast = cv2.imread("results/test4/images_to_compare/"+str(i)+"/targets.png")
     # shopped = cv2.imread("images/jp_gates_photoshopped.png")
@@ -76,7 +76,7 @@ for i in range(1,50):
     images = ("Original", original), ("Contrast", contrast)
 
     # loop over the images
-    '''for (i, (name, image)) in enumerate(images):
+    for (i, (name, image)) in enumerate(images):
         # show the image
         ax = fig.add_subplot(1, 3, i + 1)
         ax.set_title(name)
@@ -84,7 +84,7 @@ for i in range(1,50):
         plt.axis("off")
 
     # show the figure
-    plt.show()'''
+    plt.show()
 
     # compare the images
     # compare_images(original, original, "Output Depth Map vs. Output Depth Map")
