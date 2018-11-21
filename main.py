@@ -502,7 +502,7 @@ def save_images_to_compare(fetches, step=None):
         name, _ = os.path.splitext(os.path.basename(in_path.decode("utf8")))
         fileset = {"name": name, "step": step}
         for kind in ["outputs", "targets"]:
-            filename = name + "-" + kind + ".png"
+            filename = kind + ".png"
             if step is not None:
                 filename = "%08d-%s" % (step, filename)
             fileset[kind] = filename
