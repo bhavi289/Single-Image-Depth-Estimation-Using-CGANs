@@ -20,15 +20,26 @@ def mse(imageA, imageB):
 	# the two images are
 	return err
 
-def compare_images(imageA, imageB, title):
+total_m = 0
+total_s = 0
+
+
+def compare_images(imageA, imageB, title, f):
 	# compute the mean squared error and structural similarity
 	# index for the images
+	global total_m, total_s
+
 	m = mse(imageA, imageB)
 	s = ssim(imageA, imageB)
 
+
+
+	total_m += m
+	total_s += s
+
 	# write this in file
-    print(m)
-	print(s)
+	f.write(str(m)+","+str(s)+"\n")
+	# print(s)
 
 '''
 	# setup the figure
@@ -48,8 +59,8 @@ def compare_images(imageA, imageB, title):
 	# show the images
 	plt.show()      '''
 
-# load the images -- the original, the original + contrast,
-# and the original + photoshop
+f = open("mse_ssim.txt","w")
+
 for i in range(1,50):
     original = cv2.imread("results/test4/images_to_compare/"+str(i)+"/outputs.png")
     contrast = cv2.imread("results/test4/images_to_compare/"+str(i)+"/targets.png")
@@ -76,6 +87,16 @@ for i in range(1,50):
     plt.show()'''
 
     # compare the images
-    compare_images(original, original, "Output Depth Map vs. Output Depth Map")
-    compare_images(original, contrast, "Output Depth Map vs. Depth Map from Dataset")
+    # compare_images(original, original, "Output Depth Map vs. Output Depth Map")
+
+    compare_images(original, contrast, "Output Depth Map vs. Depth Map from Dataset", f)
     # compare_images(original, shopped, "Original vs. Photoshopped")
+f.close()
+
+print (total_m/49, total_s/49)
+
+
+
+
+
+
