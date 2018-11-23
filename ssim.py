@@ -43,27 +43,27 @@ def compare_images(imageA, imageB, title, f):
 
 
 	# setup the figure
-	fig = plt.figure(title)
-	plt.suptitle("MSE: %.2f, SSIM: %.2f" % (m, s))
+	# fig = plt.figure(title)
+	# plt.suptitle("MSE: %.2f, SSIM: %.2f" % (m, s))
 
-	# show first image
-	ax = fig.add_subplot(1, 2, 1)
-	plt.imshow(imageA, cmap = plt.cm.gray)
-	plt.axis("off")
+	# # show first image
+	# ax = fig.add_subplot(1, 2, 1)
+	# plt.imshow(imageA, cmap = plt.cm.gray)
+	# plt.axis("off")
 
-	# show the second image
-	ax = fig.add_subplot(1, 2, 2)
-	plt.imshow(imageB, cmap = plt.cm.gray)
-	plt.axis("off")
+	# # show the second image
+	# ax = fig.add_subplot(1, 2, 2)
+	# plt.imshow(imageB, cmap = plt.cm.gray)
+	# plt.axis("off")
 
-	# show the images
-	plt.show()      
+	# # show the images
+	# plt.show()      
 
 f = open("mse_ssim.txt","w")
 
-for i in range(1,20):
-    original = cv2.imread("results/test4/images_to_compare/"+str(i)+"/outputs.png")
-    contrast = cv2.imread("results/test4/images_to_compare/"+str(i)+"/targets.png")
+for i in range(1,221):
+    original = cv2.imread("results/test5/images_to_compare/"+str(i)+"/outputs.png")
+    contrast = cv2.imread("results/test5/images_to_compare/"+str(i)+"/targets.png")
     # shopped = cv2.imread("images/jp_gates_photoshopped.png")
 
     # convert the images to grayscale
@@ -76,24 +76,31 @@ for i in range(1,20):
     images = ("Original", original), ("Contrast", contrast)
 
     # loop over the images
-    for (i, (name, image)) in enumerate(images):
-        # show the image
-        ax = fig.add_subplot(1, 3, i + 1)
-        ax.set_title(name)
-        plt.imshow(image, cmap = plt.cm.gray)
-        plt.axis("off")
+	
+    # for (i, (name, image)) in enumerate(images):
+    #     # show the image
+    #     ax = fig.add_subplot(1, 3, i + 1)
+    #     ax.set_title(name)
+    #     plt.imshow(image, cmap = plt.cm.gray)
+    #     plt.axis("off")
 
-    # show the figure
-    plt.show()
+    # # show the figure
+    # plt.show()
+	
 
     # compare the images
     # compare_images(original, original, "Output Depth Map vs. Output Depth Map")
 
     compare_images(original, contrast, "Output Depth Map vs. Depth Map from Dataset", f)
     # compare_images(original, shopped, "Original vs. Photoshopped")
+f.write("\n\n")
+f.write("AVERAGE VALUES - \n\n")
+f.write(f"SSIM INDEX - {total_s/220}\n")
+f.write(f"Mean Square Error - {total_m/220}\n")
+
 f.close()
 
-print (total_m/49, total_s/49)
+print (total_m/221, total_s/221)
 
 
 
