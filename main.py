@@ -696,7 +696,7 @@ def main():
                     print("gen_loss_L1", results["gen_loss_L1"])
 
                     global last_checkpoint
-                    if train_epoch - last_checkpoint == 5:
+                    if train_epoch - last_checkpoint == 10:
                         print ("train epoch - ", train_epoch, " last_checkpoint - ", last_checkpoint)
                         last_checkpoint = train_epoch
                         print ("train epoch - ", train_epoch, " last_checkpoint - ", last_checkpoint, "\nSaving\n ")

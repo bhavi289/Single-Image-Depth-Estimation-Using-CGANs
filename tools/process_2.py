@@ -77,8 +77,10 @@ def combine(src, src_path):
 
     # find corresponding file in b_dir, could have a different extension
     basename, _ = os.path.splitext(os.path.basename(src_path))
+    print ("basename", basename)
     for ext in [".png", ".jpg"]:
         sibling_path = os.path.join(a.b_dir, basename + ext)
+        # sibling_path = os.path.join(a.b_dir, "img_0063" + ext)
         if os.path.exists(sibling_path):
             sibling = im.load(sibling_path)
             break
@@ -269,7 +271,10 @@ def main():
     if a.workers == 1:
         with tf.Session() as sess:
             for src_path, dst_path in zip(src_paths, dst_paths):
-                process(src_path, dst_path)
+                try:
+                    process(src_path, dst_path)
+                except Exception as e:
+                    print (e)
                 complete()
     else:
         queue = tf.train.input_producer(zip(src_paths, dst_paths), shuffle=False, num_epochs=1)

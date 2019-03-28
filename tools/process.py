@@ -232,7 +232,9 @@ def complete():
 
 
 def main():
+    print("jhol")
     if not os.path.exists(a.output_dir):
+        print("os.makedirs(a.output_dir)")
         os.makedirs(a.output_dir)
 
     src_paths = []
@@ -240,12 +242,19 @@ def main():
 
     skipped = 0
     for image_dir in os.listdir(a.input_dir):
-        # print (f"path - {a.input_dir}{image_dir}/image")
+        print (f"path - {a.input_dir}{image_dir}")
         try:
-            for src_path in im.find(a.input_dir+image_dir+"/depth"):
-                name, _ = os.path.splitext(os.path.basename(src_path))
+            # print (len(im.find(a.input_dir + image_dir + "/image/")))
+            for src_path in im.find(a.input_dir + image_dir + "/depth/"):
+                # name, _ = os.path.splitext(os.path.basename(src_path))
+                name = image_dir
                 dst_path = os.path.join(a.output_dir, name+ ".png")
+                # print (image_dir, name)
+                # if image_dir != name:
+                #     print ("Proble")
+                #     break
 
+                # print (name, dst_path)
                 if os.path.exists(dst_path):
                     skipped += 1
                 else:
@@ -273,7 +282,10 @@ def main():
     if a.workers == 1:
         with tf.Session() as sess:
             for src_path, dst_path in zip(src_paths, dst_paths):
-                process(src_path, dst_path)
+                try:
+                    process(src_path, dst_path)
+                except Exception as e:
+                    print (e)
                 complete()
     else:
         queue = tf.train.input_producer(zip(src_paths, dst_paths), shuffle=False, num_epochs=1)
@@ -288,7 +300,7 @@ def main():
                         coord.request_stop()
                         break
 
-                    process(src_path, dst_path)
+                    # process(src_path, dst_path)
                     complete()
 
         # init epoch counter for the queue
