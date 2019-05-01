@@ -7,7 +7,6 @@ kv1
 facades
 facades_train
 resized
-combined
 depth_estimation
 depth_estimation_2
 results
@@ -17,3 +16,9 @@ docs
 server
 README.md
 LICENSE.txt
+New_Train
+New_Dataset
+New_Resized/*
+New_Combined
+New_Test/*
+combined/*
